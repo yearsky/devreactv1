@@ -2,21 +2,23 @@
 import Table from './Table'
 
 // ** Reactstrap Imports
-import { Row, Col } from 'reactstrap'
+import { Row, Col, Card, CardHeader, CardTitle, CardBody, Label } from 'reactstrap'
 
 // ** Custom Components
 import StatsHorizontal from '@components/widgets/stats/StatsHorizontal'
 
 // ** Icons Imports
 import { User, UserPlus, UserCheck, UserX } from 'react-feather'
+import DevDataGrid from './DevDataGrid'
 
 // ** Styles
 import '@styles/react/apps/app-users.scss'
 
+
 const UsersList = () => {
   return (
     <div className='app-user-list'>
-      <Row>
+      {/* <Row>
         <Col lg='3' sm='6'>
           <StatsHorizontal
             color='primary'
@@ -49,8 +51,16 @@ const UsersList = () => {
             renderStats={<h3 className='fw-bolder mb-75'>237</h3>}
           />
         </Col>
-      </Row>
-      <Table />
+      </Row> */}
+      {/* <Table /> */}
+      <Card>
+        <CardHeader>
+          <CardTitle tag='h4'>Data Users</CardTitle>
+        </CardHeader>
+        <CardBody>
+          <DevDataGrid/>
+        </CardBody>
+      </Card>
     </div>
   )
 }

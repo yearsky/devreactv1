@@ -1,6 +1,8 @@
 // ** React Imports
-import { useContext, Fragment } from 'react'
+import { Fragment, useContext } from 'react'
 import { Link, useHistory } from 'react-router-dom'
+import Cookies from 'js-cookie'
+// import users from '../../../constants/api/users'
 
 // ** Custom Hooks
 import { useSkin } from '@hooks/useSkin'
@@ -79,6 +81,10 @@ const Login = () => {
             { icon: false, transition: Slide, hideProgressBar: true, autoClose: 2000 }
           )
         })
+        // users.login({email: 'johon@gmail.com', password: '123123'}).then((result) => {
+        //   const token = result.data.token
+        //   console.log(token)
+        // })
         .catch(err => console.log(err))
     } else {
       for (const key in data) {

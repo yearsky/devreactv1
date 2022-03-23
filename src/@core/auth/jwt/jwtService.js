@@ -1,6 +1,11 @@
 import axios from 'axios'
 import jwtDefaultConfig from './jwtDefaultConfig'
 
+// const instance = axios.create({
+//   baseURL: 'http://127.0.0.1:8000/',
+//   timeout: 10000
+// })
+
 export default class JwtService {
   // ** jwtConfig <= Will be used by this service
   jwtConfig = { ...jwtDefaultConfig }
@@ -11,18 +16,20 @@ export default class JwtService {
   // ** For Refreshing Token
   subscribers = []
 
+
   constructor(jwtOverrideConfig) {
+    const instance = axios.create({
+      baseURL: 'http://127.0.0.1:8000/',
+      timeout: 10000
+    })
+
     this.jwtConfig = { ...this.jwtConfig, ...jwtOverrideConfig }
 
     // ** Request Interceptor
-    axios.interceptors.request.use(
+    instance.interceptors.request.use(
       config => {
-        // ** Get token from localStorage
         const accessToken = this.getToken()
-
-        // ** If token is present add it to request's Authorization Header
         if (accessToken) {
-          // ** eslint-disable-next-line no-param-reassign
           config.headers.Authorization = `${this.jwtConfig.tokenType} ${accessToken}`
         }
         return config
@@ -30,22 +37,17 @@ export default class JwtService {
       error => Promise.reject(error)
     )
 
-    // ** Add request/response interceptor
-    axios.interceptors.response.use(
+    instance.interceptors.response.use(
       response => response,
       error => {
-        // ** const { config, response: { status } } = error
         const { config, response } = error
         const originalRequest = config
-
-        // ** if (status === 401) {
         if (response && response.status === 401) {
           if (!this.isAlreadyFetchingAccessToken) {
             this.isAlreadyFetchingAccessToken = true
             this.refreshToken().then(r => {
               this.isAlreadyFetchingAccessToken = false
 
-              // ** Update accessToken in localStorage
               this.setToken(r.data.accessToken)
               this.setRefreshToken(r.data.refreshToken)
 

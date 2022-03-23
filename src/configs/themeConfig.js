@@ -3,7 +3,7 @@
 //Template config options
 const themeConfig = {
   app: {
-    appName: 'Vuexy',
+    appName: 'Bintang Teknik',
     appLogoImage: require('@src/assets/images/logo/logo.svg').default
   },
   layout: {
@@ -22,7 +22,7 @@ const themeConfig = {
       backgroundColor: 'white' // BS color options [primary, success, etc]
     },
     footer: {
-      type: 'static' // static, sticky, hidden
+      type: 'hidden' // static, sticky, hidden
     },
     customizer: false,
     scrollTop: true // Enable scroll to top button

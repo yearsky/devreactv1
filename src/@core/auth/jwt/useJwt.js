@@ -8,4 +8,4 @@ export default function useJwt(jwtOverrideConfig) {
   return {
     jwt
   }
-}
+} 
